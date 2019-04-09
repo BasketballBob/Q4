@@ -519,13 +519,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56782eb667b17aa479d76ca9152c717d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 0
-  y: 0
-  w: 0
-  h: 0
-  font: {fileID: 0}
-  fontSize: 0
-  textureToDisplay: {fileID: 2800000, guid: e75ce01b7f32b7246abc745cad7369af, type: 3}
+  cx: 883
+  cy: 0
+  cw: 150
+  ch: 100
+  hx: 0
+  hy: 0
+  hw: 0
+  hh: 0
+  icx: 654
+  icy: 0
+  ihx: 0
+  ihy: 0
+  font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  fontSize: 28
+  CurencyTexture: {fileID: 2800000, guid: a9016020374eff84ba925889063ff163, type: 3}
+  HealthTexture: {fileID: 2800000, guid: 1be2b3877cab9794886768f751261640, type: 3}
 --- !u!1 &1339292933 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 496400427605584057, guid: 5a23b24a27ac6f948b8d52ea7945c7dc,
