@@ -6,7 +6,6 @@ public class UI : MonoBehaviour
 {
     // Defining all the varibles for text
     public float cx, cy, cw, ch;
-    public float hx, hy, hw, hh;
     public float wx, wy, ww, wh;
     //varible for images
     public float icx, icy;
@@ -33,9 +32,6 @@ public class UI : MonoBehaviour
         //Displays Curency text at the given corintaes
         GUI.Label(new Rect(cx, cy, cw, ch), currency.ToString());
 
-        //Displays Health text at the given corinates
-        GUI.Label(new Rect(hx, hy, hw, hh), health.ToString());
-
         //Displays the wave counter text at the given corinates
         GUI.Label(new Rect(wx, wy, ww, wh), wave.ToString());
 
@@ -58,6 +54,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        wave++;
         currency++;
     }
 }
