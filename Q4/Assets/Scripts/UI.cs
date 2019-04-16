@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
+    
     // Defining all the varibles for text
     public float cx, cy, cw, ch;
     public float wx, wy, ww, wh;
+
     //varible for images
     public float icx, icy;
-    public float ihx, ihy;
-    public float iwx, iwy;
+  
+
    //varibles for font and font size
     public Font font;
     public int fontSize;
 
+    //vectors varibles for game object that will be spawned at the start of the game.
+    Vector3 BaseHealthPos, TowerPos, WaveProgressBarPos;
+    public Vector3 Toffest,Hoffset,Poffset;
+    //Game objects
+    public GameObject BaseHealthBar, Tower, WaveProgressBar;
+    public GameObject HealthRef, TowerRef, ProgressRef;
+
+    Transform ts;
     //curency, health, and wave varibles
     public static int currency;
     public static int health;
     public static int wave;
+
+    
+
     // texture varibles
-    public Texture2D CurencyTexture,HealthTexture,WaveTeture;
+    public Texture2D CurencyTexture,WaveTeture;
 
     
     
@@ -37,10 +50,8 @@ public class UI : MonoBehaviour
 
         //Displays the currecy texture at given cordinates
         GUI.DrawTexture(new Rect(icx, icy, CurencyTexture.width, CurencyTexture.height), CurencyTexture);
-        //Displays the health texture at given cordinates
-        GUI.DrawTexture(new Rect(ihx, ihy, HealthTexture.width, HealthTexture.height), HealthTexture);
-        //Displays the wave teture at the given corinates
-        GUI.DrawTexture(new Rect(iwx, iwy, WaveTeture.width, WaveTeture.height), WaveTeture);
+
+       
 
 
 
@@ -48,13 +59,31 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       ts= GetComponent<Transform>();
+       
+      //spawn the game objects
+        HealthRef = Instantiate(BaseHealthBar);
+        TowerRef = Instantiate(Tower);
+        ProgressRef = Instantiate(WaveProgressBar);
+
+       
+
+
+
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        wave++;
-        currency++;
+        //Set all the game objects to the vector 3 at the start of the game.
+        // HealthRef.transform.position.x = ;
+
+        Vector3 TowerRefCam = new Vector3(ts.position.x, ts.position.y, TowerRef.transform.position.z);
+        Vector3 HealthRefCam = new Vector3(ts.position.x, ts.position.y, HealthRef.transform.position.z);
+        Vector3 ProgressRefCam = new Vector3(ts.position.x, ts.position.y, ProgressRef.transform.position.z);
+
+        TowerRef.transform.position=(TowerRefCam+Toffest);
+        ProgressRef.transform.position=(ProgressRefCam+Poffset);
+        HealthRef.transform.position=(HealthRefCam+Hoffset);
     }
 }
