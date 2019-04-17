@@ -19,10 +19,10 @@ public class UI : MonoBehaviour
 
     //vectors varibles for game object that will be spawned at the start of the game.
     Vector3 BaseHealthPos, TowerPos, WaveProgressBarPos;
-    public Vector3 Toffest,Hoffset,Poffset;
-    //Game objects
-    public GameObject BaseHealthBar, Tower, WaveProgressBar;
-    public GameObject HealthRef, TowerRef, ProgressRef;
+    public Vector3 Toffest,Hoffset,Poffset,HMoffset,PMoffset, SHMoffset, SPMoffset;
+    //Game object
+    public GameObject BaseHealthBar, Tower, WaveProgressBar,ProgressMask,HealthMask;
+    GameObject HealthRef, TowerRef, ProgressRef,ProgressMaskRef, HealthMaskRef;
 
     Transform ts;
     //curency, health, and wave varibles
@@ -65,6 +65,8 @@ public class UI : MonoBehaviour
         HealthRef = Instantiate(BaseHealthBar);
         TowerRef = Instantiate(Tower);
         ProgressRef = Instantiate(WaveProgressBar);
+        ProgressMaskRef = Instantiate(ProgressMask);
+        HealthMaskRef = Instantiate(ProgressMask);
 
        
 
@@ -81,9 +83,20 @@ public class UI : MonoBehaviour
         Vector3 TowerRefCam = new Vector3(ts.position.x, ts.position.y, TowerRef.transform.position.z);
         Vector3 HealthRefCam = new Vector3(ts.position.x, ts.position.y, HealthRef.transform.position.z);
         Vector3 ProgressRefCam = new Vector3(ts.position.x, ts.position.y, ProgressRef.transform.position.z);
+        Vector3 ProgressMaskRefCam = new Vector3(ts.position.x, ts.position.y, ProgressMaskRef.transform.position.z);
+        Vector3 HealthMaskRefCam = new Vector3(ts.position.x, ts.position.y, HealthMaskRef.transform.position.z);
 
+        Vector3 HealtMaskRefSCam = new Vector3(HealthMaskRef.transform.localScale.x, HealthMaskRef.transform.localScale.y, ts.localScale.z);
+        Vector3 ProgressMaskRefSCam = new Vector3(ProgressMaskRef.transform.localScale.x, ProgressMaskRef.transform.localScale.y, ts.localScale.z);
+       
         TowerRef.transform.position=(TowerRefCam+Toffest);
         ProgressRef.transform.position=(ProgressRefCam+Poffset);
         HealthRef.transform.position=(HealthRefCam+Hoffset);
+        ProgressMaskRef.transform.position = (ProgressMaskRefCam + PMoffset);
+        HealthMaskRef.transform.position = (HealthMaskRefCam + HMoffset);
+        ProgressMaskRef.transform.position = (ProgressMaskRefSCam + SPMoffset);
+        HealthMaskRef.transform.localScale = (HealtMaskRefSCam + SHMoffset);
+        
+
     }
 }

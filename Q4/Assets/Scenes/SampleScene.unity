@@ -534,14 +534,19 @@ MonoBehaviour:
   Toffest: {x: -6.02, y: 4, z: 0}
   Hoffset: {x: -3.53, y: 4, z: 0}
   Poffset: {x: 1.23, y: 4, z: 0}
+  HMoffset: {x: -3.53, y: 4, z: 0}
+  PMoffset: {x: 1.23, y: 4, z: 0}
+  SHMoffset: {x: 0, y: 0, z: 0}
+  SPMoffset: {x: 0, y: 0, z: 0}
   BaseHealthBar: {fileID: 7522304400729958388, guid: 4c3e8d2769cacb04eb2fb8d75b1701b1,
     type: 3}
   Tower: {fileID: 2501936523474263062, guid: 6862f3c116caaf944a29d7b1fb3a9038, type: 3}
   WaveProgressBar: {fileID: 1973860226146619493, guid: d4ce75aec1dc8a3458346bdb5fc72523,
     type: 3}
-  HealthRef: {fileID: 0}
-  TowerRef: {fileID: 0}
-  ProgressRef: {fileID: 0}
+  ProgressMask: {fileID: 652161338193838131, guid: 79af59e0e2209fb4fa51fe82c2886a51,
+    type: 3}
+  HealthMask: {fileID: 3401230665127340866, guid: f1e54e84ade918a41b49af7422d6ac61,
+    type: 3}
   CurencyTexture: {fileID: 2800000, guid: a9016020374eff84ba925889063ff163, type: 3}
   WaveTeture: {fileID: 2800000, guid: b49a6e389209e114d91e33aea7174da6, type: 3}
 --- !u!212 &1067921736
