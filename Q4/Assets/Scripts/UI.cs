@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    
+    public float x;
+    int BHealth;
+    int MaxHealth;
     // Defining all the varibles for text
     public float cx, cy, cw, ch;
     public float wx, wy, ww, wh;
 
     //varible for images
     public float icx, icy;
-  
 
    //varibles for font and font size
     public Font font;
@@ -19,7 +20,7 @@ public class UI : MonoBehaviour
 
     //vectors varibles for game object that will be spawned at the start of the game.
     Vector3 BaseHealthPos, TowerPos, WaveProgressBarPos;
-    public Vector3 Toffest,Hoffset,Poffset,HMoffset,PMoffset, SHMoffset, SPMoffset;
+    public Vector3 Toffest,Hoffset,Poffset,HMoffset,PMoffset;
     //Game object
     public GameObject BaseHealthBar, Tower, WaveProgressBar,ProgressMask,HealthMask;
     GameObject HealthRef, TowerRef, ProgressRef,ProgressMaskRef, HealthMaskRef;
@@ -30,12 +31,8 @@ public class UI : MonoBehaviour
     public static int health;
     public static int wave;
 
-    
-
     // texture varibles
     public Texture2D CurencyTexture,WaveTeture;
-
-    
     
     private void OnGUI()
     {
@@ -50,28 +47,18 @@ public class UI : MonoBehaviour
 
         //Displays the currecy texture at given cordinates
         GUI.DrawTexture(new Rect(icx, icy, CurencyTexture.width, CurencyTexture.height), CurencyTexture);
-
-       
-
-
-
     }
     // Start is called before the first frame update
     void Start()
     {
        ts= GetComponent<Transform>();
-       
+        BHealth = GameObject.Find("Game Manager").GetComponent<GameManager>().Health;
       //spawn the game objects
         HealthRef = Instantiate(BaseHealthBar);
         TowerRef = Instantiate(Tower);
         ProgressRef = Instantiate(WaveProgressBar);
         ProgressMaskRef = Instantiate(ProgressMask);
-        HealthMaskRef = Instantiate(ProgressMask);
-
-       
-
-
-
+        HealthMaskRef = Instantiate(HealthMask);
     }
 
     // Update is called once per frame
@@ -86,16 +73,16 @@ public class UI : MonoBehaviour
         Vector3 ProgressMaskRefCam = new Vector3(ts.position.x, ts.position.y, ProgressMaskRef.transform.position.z);
         Vector3 HealthMaskRefCam = new Vector3(ts.position.x, ts.position.y, HealthMaskRef.transform.position.z);
 
-        Vector3 HealtMaskRefSCam = new Vector3(HealthMaskRef.transform.localScale.x, HealthMaskRef.transform.localScale.y, ts.localScale.z);
-        Vector3 ProgressMaskRefSCam = new Vector3(ProgressMaskRef.transform.localScale.x, ProgressMaskRef.transform.localScale.y, ts.localScale.z);
-       
+        
+       //Move the game objects reltive to the camrea
         TowerRef.transform.position=(TowerRefCam+Toffest);
         ProgressRef.transform.position=(ProgressRefCam+Poffset);
         HealthRef.transform.position=(HealthRefCam+Hoffset);
         ProgressMaskRef.transform.position = (ProgressMaskRefCam + PMoffset);
         HealthMaskRef.transform.position = (HealthMaskRefCam + HMoffset);
-        ProgressMaskRef.transform.position = (ProgressMaskRefSCam + SPMoffset);
-        HealthMaskRef.transform.localScale = (HealtMaskRefSCam + SHMoffset);
+        float maskX = HealthRef.transform.localScale.x;
+        Vector3 HealthMaskMovment = new Vector3(HealthMaskRef.transform.position.x-, 0, 0);
+       
         
 
     }
