@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    public float x;
+    public int x;
     int BHealth;
     int MaxHealth;
     // Defining all the varibles for text
@@ -46,13 +46,14 @@ public class UI : MonoBehaviour
         GUI.Label(new Rect(wx, wy, ww, wh), wave.ToString());
 
         //Displays the currecy texture at given cordinates
-        GUI.DrawTexture(new Rect(icx, icy, CurencyTexture.width, CurencyTexture.height), CurencyTexture);
+            //GUI.DrawTexture(new Rect(icx, icy, CurencyTexture.width, CurencyTexture.height), CurencyTexture);
     }
     // Start is called before the first frame update
     void Start()
     {
-       ts= GetComponent<Transform>();
-        BHealth = GameObject.Find("Game Manager").GetComponent<GameManager>().Health;
+       ts=GetComponent<Transform>();
+       BHealth = GameObject.Find("Game Manager").GetComponent<GameManager>().Health;
+
       //spawn the game objects
         HealthRef = Instantiate(BaseHealthBar);
         TowerRef = Instantiate(Tower);
@@ -64,9 +65,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //Set all the game objects to the vector 3 at the start of the game.
-        // HealthRef.transform.position.x = ;
-
+        // set the vector to move the objects reltive to the camrea
         Vector3 TowerRefCam = new Vector3(ts.position.x, ts.position.y, TowerRef.transform.position.z);
         Vector3 HealthRefCam = new Vector3(ts.position.x, ts.position.y, HealthRef.transform.position.z);
         Vector3 ProgressRefCam = new Vector3(ts.position.x, ts.position.y, ProgressRef.transform.position.z);
@@ -80,10 +79,22 @@ public class UI : MonoBehaviour
         HealthRef.transform.position=(HealthRefCam+Hoffset);
         ProgressMaskRef.transform.position = (ProgressMaskRefCam + PMoffset);
         HealthMaskRef.transform.position = (HealthMaskRefCam + HMoffset);
+
+        // move the sprite masks
+        int y = 10;
+        Debug.Log(y);
         float maskX = HealthRef.transform.localScale.x;
-        Vector3 HealthMaskMovment = new Vector3(HealthMaskRef.transform.position.x-, 0, 0);
-       
+        Vector3 HealthMaskMovment = new Vector3(1, 0, 0);
+
+        Vector3 HealthBarPos = HealthRef.transform.position;
+        float HealthBarWidth = HealthRef.GetComponent<SpriteRenderer>().bounds.size.x;
+        float Health = 5;
+        float HealthCap = 10;
+        float HealthRatio = Health / HealthCap;
         
+        Vector3 MaskPos = new Vector3(HealthBarPos.x - HealthRatio * HealthBarWidth, HealthBarPos.y, HealthBarPos.z);
+        HealthMaskRef.transform.position = MaskPos;
+
 
     }
 }
