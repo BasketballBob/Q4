@@ -15,15 +15,15 @@ public class UI : MonoBehaviour
     public float icx, icy;
 
    //varibles for font and font size
-    public Font font;
+    public Font Defultfont,WaveFont;
     public int fontSize;
 
     //vectors varibles for game object that will be spawned at the start of the game.
     Vector3 BaseHealthPos, TowerPos, WaveProgressBarPos;
-    public Vector3 Toffest,Hoffset,Poffset,HMoffset,PMoffset;
+    public Vector3 Toffest,Hoffset,Poffset,HMoffset,PMoffset,BHBoffset;
     //Game object
-    public GameObject BaseHealthBar, Tower, WaveProgressBar,ProgressMask,HealthMask;
-    GameObject HealthRef, TowerRef, ProgressRef,ProgressMaskRef, HealthMaskRef;
+    public GameObject BaseHealthBar, Tower, WaveProgressBar,ProgressMask,HealthMask,BaseHealthBarBackground;
+    GameObject HealthRef, TowerRef, ProgressRef,ProgressMaskRef, HealthMaskRef, BaseHealthBarBackgroundRef;
 
     Transform ts;
     //curency, health, and wave varibles
@@ -36,13 +36,18 @@ public class UI : MonoBehaviour
     
     private void OnGUI()
     {
-        GUI.skin.label.font = GUI.skin.button.font = GUI.skin.box.font = font;
+        GUI.skin.label.normal.textColor = Color.white;
+        GUI.skin.label.font = GUI.skin.button.font = GUI.skin.box.font = Defultfont;
         GUI.skin.label.fontSize = GUI.skin.box.fontSize = GUI.skin.button.fontSize = fontSize;
 
         //Displays Curency text at the given corintaes
         GUI.Label(new Rect(cx, cy, cw, ch), currency.ToString());
 
+
         //Displays the wave counter text at the given corinates
+        GUI.skin.label.normal.textColor = Color.black;
+        GUI.skin.label.font = GUI.skin.button.font = GUI.skin.box.font = WaveFont;
+        GUI.skin.label.fontSize = GUI.skin.box.fontSize = GUI.skin.button.fontSize = fontSize;
         GUI.Label(new Rect(wx, wy, ww, wh), wave.ToString());
 
         //Displays the currecy texture at given cordinates
@@ -60,6 +65,7 @@ public class UI : MonoBehaviour
         ProgressRef = Instantiate(WaveProgressBar);
         ProgressMaskRef = Instantiate(ProgressMask);
         HealthMaskRef = Instantiate(HealthMask);
+        BaseHealthBarBackgroundRef = Instantiate(BaseHealthBarBackground);
     }
 
     // Update is called once per frame
@@ -71,6 +77,7 @@ public class UI : MonoBehaviour
         Vector3 ProgressRefCam = new Vector3(ts.position.x, ts.position.y, ProgressRef.transform.position.z);
         Vector3 ProgressMaskRefCam = new Vector3(ts.position.x, ts.position.y, ProgressMaskRef.transform.position.z);
         Vector3 HealthMaskRefCam = new Vector3(ts.position.x, ts.position.y, HealthMaskRef.transform.position.z);
+        Vector3 BaseHealthBarBackgroundCam = new Vector3(ts.position.x, ts.position.y, BaseHealthBarBackgroundRef.transform.position.z);
 
         
        //Move the game objects reltive to the camrea
@@ -79,6 +86,7 @@ public class UI : MonoBehaviour
         HealthRef.transform.position=(HealthRefCam+Hoffset);
         ProgressMaskRef.transform.position = (ProgressMaskRefCam + PMoffset);
         HealthMaskRef.transform.position = (HealthMaskRefCam + HMoffset);
+        BaseHealthBarBackgroundRef.transform.position = (BaseHealthBarBackgroundCam + BHBoffset);
 
         // move the sprite masks
         int y = 10;
