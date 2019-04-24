@@ -89,19 +89,24 @@ public class UI : MonoBehaviour
         BaseHealthBarBackgroundRef.transform.position = (BaseHealthBarBackgroundCam + BHBoffset);
 
         // move the sprite masks
-        int y = 10;
-        Debug.Log(y);
-        float maskX = HealthRef.transform.localScale.x;
-        Vector3 HealthMaskMovment = new Vector3(1, 0, 0);
-
+        
+     
         Vector3 HealthBarPos = HealthRef.transform.position;
         float HealthBarWidth = HealthRef.GetComponent<SpriteRenderer>().bounds.size.x;
         float Health = 5;
         float HealthCap = 10;
         float HealthRatio = Health / HealthCap;
         
-        Vector3 MaskPos = new Vector3(HealthBarPos.x - HealthRatio * HealthBarWidth, HealthBarPos.y, HealthBarPos.z);
-        HealthMaskRef.transform.position = MaskPos;
+        Vector3 HMaskPos = new Vector3(HealthBarPos.x - HealthRatio * HealthBarWidth, HealthBarPos.y, HealthBarPos.z);
+        HealthMaskRef.transform.position = HMaskPos;
+
+        //prgress sprie movment
+        Vector3 ProgressBarPos = ProgressRef.transform.position;
+        float ProgressBarWidth = ProgressRef.GetComponent<SpriteRenderer>().bounds.size.x;
+        float Progress = 5;
+        float ProgressCap = 10;
+        float ProgressRatio = Progress / ProgressCap;
+        Vector3 PMaskPos = new Vector3(ProgressBarPos.x - ProgressRatio * ProgressBarWidth, ProgressBarPos.y, ProgressBarPos.z);
 
 
     }
