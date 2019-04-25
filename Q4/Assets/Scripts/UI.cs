@@ -20,10 +20,10 @@ public class UI : MonoBehaviour
 
     //vectors varibles for game object that will be spawned at the start of the game.
     Vector3 BaseHealthPos, TowerPos, WaveProgressBarPos;
-    public Vector3 Toffest,Hoffset,Poffset,HMoffset,PMoffset,BHBoffset;
+    public Vector3 Toffest,Hoffset,Poffset,HMoffset,PMoffset,BHBoffset,PBBoffset;
     //Game object
-    public GameObject BaseHealthBar, Tower, WaveProgressBar,ProgressMask,HealthMask,BaseHealthBarBackground;
-    GameObject HealthRef, TowerRef, ProgressRef,ProgressMaskRef, HealthMaskRef, BaseHealthBarBackgroundRef;
+    public GameObject BaseHealthBar, Tower, WaveProgressBar,ProgressMask,HealthMask,BaseHealthBarBackground, ProgressBarBackground;
+    GameObject HealthRef, TowerRef, ProgressRef,ProgressMaskRef, HealthMaskRef, BaseHealthBarBackgroundRef, ProgressBarBackgroundRef;
 
     Transform ts;
     //curency, health, and wave varibles
@@ -32,7 +32,7 @@ public class UI : MonoBehaviour
     public static int wave;
 
     // texture varibles
-    public Texture2D CurencyTexture,WaveTeture;
+    public Texture2D CurencyTexture;
     
     private void OnGUI()
     {
@@ -51,7 +51,7 @@ public class UI : MonoBehaviour
         GUI.Label(new Rect(wx, wy, ww, wh), wave.ToString());
 
         //Displays the currecy texture at given cordinates
-            //GUI.DrawTexture(new Rect(icx, icy, CurencyTexture.width, CurencyTexture.height), CurencyTexture);
+            GUI.DrawTexture(new Rect(icx, icy, CurencyTexture.width, CurencyTexture.height), CurencyTexture);
     }
     // Start is called before the first frame update
     void Start()
@@ -66,6 +66,7 @@ public class UI : MonoBehaviour
         ProgressMaskRef = Instantiate(ProgressMask);
         HealthMaskRef = Instantiate(HealthMask);
         BaseHealthBarBackgroundRef = Instantiate(BaseHealthBarBackground);
+        ProgressBarBackgroundRef = Instantiate(ProgressBarBackground);
     }
 
     // Update is called once per frame
@@ -78,6 +79,7 @@ public class UI : MonoBehaviour
         Vector3 ProgressMaskRefCam = new Vector3(ts.position.x, ts.position.y, ProgressMaskRef.transform.position.z);
         Vector3 HealthMaskRefCam = new Vector3(ts.position.x, ts.position.y, HealthMaskRef.transform.position.z);
         Vector3 BaseHealthBarBackgroundCam = new Vector3(ts.position.x, ts.position.y, BaseHealthBarBackgroundRef.transform.position.z);
+        Vector3 ProgressBarBackgroundCam = new Vector3(ts.position.x, ts.position.y, ProgressBarBackgroundRef.transform.position.z);
 
         
        //Move the game objects reltive to the camrea
@@ -87,6 +89,7 @@ public class UI : MonoBehaviour
         ProgressMaskRef.transform.position = (ProgressMaskRefCam + PMoffset);
         HealthMaskRef.transform.position = (HealthMaskRefCam + HMoffset);
         BaseHealthBarBackgroundRef.transform.position = (BaseHealthBarBackgroundCam + BHBoffset);
+        ProgressBarBackgroundRef.transform.position = (ProgressBarBackgroundCam + PBBoffset);
 
         // move the sprite masks
         
