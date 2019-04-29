@@ -11,11 +11,12 @@ public class Projectile : MonoBehaviour {
 
     //Projectile Variable
     public bool ProjectileTilt = false;
+    public bool Invulnerable = false;
     int damage = 1;
     float lifeAlarm = 3f;
 
     //Define Reference Variables
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         trans = GetComponent<Transform>();
         co = GetComponent<Collider>();
@@ -23,13 +24,16 @@ public class Projectile : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    public virtual void Update () {
 
         //Set Direction Based On Trajectory 
-        trans.eulerAngles = new Vector3(0, 0, (Mathf.Atan2(po.vSpeed, po.hSpeed)/Mathf.PI) * 180);
+        if (ProjectileTilt)
+        {
+            trans.eulerAngles = new Vector3(0, 0, (Mathf.Atan2(po.vSpeed, po.hSpeed) / Mathf.PI) * 180);
+        }
 
         //Destroy On Enemy Contact 
-        if(co.PlaceMeeting(trans.position.x, trans.position.y, 2))
+        if(co.PlaceMeeting(trans.position.x, trans.position.y, 2) && !Invulnerable)
         {
             //Deduct Enemy Health
             GameObject tvInst = co.InstanceMeeting(trans.position.x, trans.position.y, 2);
@@ -40,7 +44,7 @@ public class Projectile : MonoBehaviour {
         }
 
         //Countdown Life Alarm
-        if (lifeAlarm - Time.deltaTime > 0)
+        if (lifeAlarm - Time.deltaTime > 0 && !Invulnerable)
         {
             lifeAlarm -= Time.deltaTime;
         }

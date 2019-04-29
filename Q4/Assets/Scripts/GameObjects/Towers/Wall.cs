@@ -89,33 +89,36 @@ public class Wall : Tower
         }
 
         //Detect If Enemy Is Colliding With Wall
-        if(Collider2.PlaceMeeting(trans.position.x-PhysicsObject.minMove, trans.position.y, 2))
+        if (Collider2 != null)
         {
-            //Shake Tower 
-            if(ShakeAlarm-Time.deltaTime > 0)
+            if (Collider2.PlaceMeeting(trans.position.x - PhysicsObject.minMove, trans.position.y, 2))
             {
-                ShakeAlarm -= Time.deltaTime;
-            }
-            else
-            {
-                ShakeSide *= -1;
-                ShakeAlarm = ShakeTime;
-            }
+                //Shake Tower 
+                if (ShakeAlarm - Time.deltaTime > 0)
+                {
+                    ShakeAlarm -= Time.deltaTime;
+                }
+                else
+                {
+                    ShakeSide *= -1;
+                    ShakeAlarm = ShakeTime;
+                }
 
-            //Set Shake Angle
-            trans.eulerAngles = new Vector3(0, 0, ShakeAngle * ShakeSide);
+                //Set Shake Angle
+                trans.eulerAngles = new Vector3(0, 0, ShakeAngle * ShakeSide);
 
-            //Deduct From Health 
-            if (Health - Time.deltaTime > 0)
-            {
-                Health -= Time.deltaTime;
-            }
-            else Health = 0;
+                //Deduct From Health 
+                if (Health - Time.deltaTime > 0)
+                {
+                    Health -= Time.deltaTime;
+                }
+                else Health = 0;
 
-            //Deduct From Health Count
-            if((HealthCount-1)*HealthAmount >= Health)
-            {
-                HealthCount -= 1;
+                //Deduct From Health Count
+                if ((HealthCount - 1) * HealthAmount >= Health)
+                {
+                    HealthCount -= 1;
+                }
             }
         }
         else
@@ -124,7 +127,7 @@ public class Wall : Tower
             trans.eulerAngles = new Vector3(0, 0, 0);
 
             //Rise Health
-            if(Health + HealthRiseRate*Time.deltaTime < HealthCount * (float)HealthAmount)
+            if (Health + HealthRiseRate * Time.deltaTime < HealthCount * (float)HealthAmount)
             {
                 Health += HealthRiseRate * Time.deltaTime;
             }

@@ -658,7 +658,7 @@ public class Player : MonoBehaviour {
                 ReferenceTower = EditingTower.GetComponent<Tower>().UpgradeTower;
             
                 //Finish Upgrading 
-                if(OptionCompleted && Cash >= ReferenceTower.GetComponent<Tower>().Cost)
+                if(OptionCompleted && Cash >= ReferenceTower.GetComponent<Tower>().Cost && ConstructingTower != null)
                 {
                     //Destroy Tower and Prompt UIReset
                     Destroy(EditingTower);

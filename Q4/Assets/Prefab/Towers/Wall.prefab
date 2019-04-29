@@ -99,7 +99,7 @@ MonoBehaviour:
   Range: 15
   AttackTime: 1
   BulletSpeed: 20
-  UpgradeTower: {fileID: 1045535898931844342}
+  UpgradeTower: {fileID: 0}
   HealthCount: 3
   Health: 0
   TopParticle: {fileID: 21300000, guid: 73121d55994309f428353a3c59d11ae0, type: 3}
