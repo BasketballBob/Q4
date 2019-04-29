@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowAI: 1
-  CanJump: 1
+  CanJump: 0
   health: 1
   moveSpeed: 2
   jumpSpeed: 8

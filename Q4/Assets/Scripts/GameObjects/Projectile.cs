@@ -7,8 +7,10 @@ public class Projectile : MonoBehaviour {
     //Reference Variables
     Transform trans;
     Collider co;
+    PhysicsObject po;
 
     //Projectile Variable
+    public bool ProjectileTilt = false;
     int damage = 1;
     float lifeAlarm = 3f;
 
@@ -17,10 +19,14 @@ public class Projectile : MonoBehaviour {
     {
         trans = GetComponent<Transform>();
         co = GetComponent<Collider>();
+        po = GetComponent<PhysicsObject>();
     }
 
     // Update is called once per frame
     void Update () {
+
+        //Set Direction Based On Trajectory 
+        trans.eulerAngles = new Vector3(0, 0, (Mathf.Atan2(po.vSpeed, po.hSpeed)/Mathf.PI) * 180);
 
         //Destroy On Enemy Contact 
         if(co.PlaceMeeting(trans.position.x, trans.position.y, 2))

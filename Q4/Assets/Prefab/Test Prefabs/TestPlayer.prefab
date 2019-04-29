@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 496400427605584057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.74, y: 2.06, z: 0}
-  m_LocalScale: {x: 1, y: -1.015, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 73121d55994309f428353a3c59d11ae0, type: 3}
-  m_Color: {r: 0.8584906, g: 0.34420612, b: 0.6886779, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bc7e2a3b7bd43a44a8c62ec7fde74527, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8d2ac56de353240afb3398fd812531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GranSprite: {fileID: 21300000, guid: 1be2b3877cab9794886768f751261640, type: 3}
+  GranSprite: {fileID: 21300000, guid: fb20f8e5c4a576c4780996102c15d974, type: 3}
+  GranHandSprite: {fileID: 21300000, guid: f079f82abf2a8b94bbf424c5b17f8dc1, type: 3}
+  GranArmSprite: {fileID: 21300000, guid: 4cc3ebdf6e101ad4f8bfc594202ff25a, type: 3}
   ProjectileReference: {fileID: 1481844612809448, guid: cd6b1d095aba3f24f9d7032cdd0bce15,
     type: 3}
   DirectionalReference: {fileID: 0}
@@ -163,3 +165,5 @@ MonoBehaviour:
   tr_LaserRay: {fileID: 6532254544023700311, guid: 2dab50cefd7ae3048aa7b0b36e72a5b5,
     type: 3}
   tr_LaserRay_Sprite: {fileID: 21300000, guid: 1be2b3877cab9794886768f751261640, type: 3}
+  tr_Wall: {fileID: 1045535898931844342, guid: fcef2aa76b3b32846a111138bc35d5e5, type: 3}
+  tr_Wall_Sprite: {fileID: 21300000, guid: 1be2b3877cab9794886768f751261640, type: 3}

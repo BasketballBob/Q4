@@ -7,6 +7,7 @@ public class ParallaxScrolling : MonoBehaviour
     //Reference Variables
     Transform CamTrans;
     public Sprite Fence, Tree, City;
+    const int ParallaxLayer = -10;
     float ScreenWidth = 14;
 
     //Parallax Scrolling Variables
@@ -30,7 +31,7 @@ public class ParallaxScrolling : MonoBehaviour
             OffSetMultiplier = offSetMultiplier;
             ObjectSpread = objectSpread;
             LayerImage = layerImage;
-            LayerOrder = layerOrder;
+            LayerOrder = ParallaxLayer + layerOrder;
             ImageScale = new Vector2(1, 1);
             ImageColor = new Color(1f, 1f, 1f, 1f);
             ObjectList = new List<GameObject>();
@@ -43,7 +44,7 @@ public class ParallaxScrolling : MonoBehaviour
             OffSetMultiplier = offSetMultiplier;
             ObjectSpread = objectSpread;
             LayerImage = layerImage;
-            LayerOrder = layerOrder;
+            LayerOrder = ParallaxLayer + layerOrder;
             ImageScale = imageScale;
             ImageColor = imageColor;
             ObjectList = new List<GameObject>();
@@ -101,8 +102,8 @@ public class ParallaxScrolling : MonoBehaviour
         {
             //Set Position Of First Object
             float ImageWidth = element.ObjectList[0].GetComponent<SpriteRenderer>().bounds.size.x;
-            Debug.Log(ImageWidth);
-            Debug.Log(element.ObjectSpread);
+            //Debug.Log(ImageWidth);
+            //Debug.Log(element.ObjectSpread);
             float InitialX = CamTrans.position.x-ScreenWidth/2 - (CamTrans.position.x*element.OffSetMultiplier) % (ImageWidth+element.ObjectSpread);
             element.ObjectList[0].transform.position = new Vector3(InitialX,
             element.YPos, element.ObjectList[0].GetComponent<Transform>().position.z);

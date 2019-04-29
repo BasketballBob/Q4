@@ -18,9 +18,12 @@ public class Player : MonoBehaviour {
     GameObject GranHand;
     public Sprite GranArmSprite;
     GameObject GranArm;
+    public RuntimeAnimatorController GranAnim;
     public GameObject ProjectileReference;
     public GameObject DirectionalReference = null;
-    public GameObject DirectionalReference2 = null;
+    public Sprite GranWeapon;
+    float GranWeaponScale = 1.5f;
+    GameObject DirectionalReference2;
     GameObject ConstructingTower;
     GameObject EditingTower;
 
@@ -80,10 +83,11 @@ public class Player : MonoBehaviour {
     float UIAlpha = .5f;
 
     //Granny Animation Variables
-    Vector2 GranOrigin = new Vector2(0, .5f);
-    Vector2 GranHandPos = new Vector2(0, .4f);
-    Vector2 GranArmPos1 = new Vector2(0, .4f); //(OffSet from PlayerPos)
-    Vector2 GranArmPos2 = new Vector2(.4f, 0); //(OffSet from GranOrigin)
+    Vector2 GranOrigin = new Vector2(0, 1f);
+    Vector2 GranHandPos = new Vector2(0, .65f);
+    Vector2 GranArmPos1 = new Vector2(0, .65f); //(OffSet from PlayerPos)
+    Vector2 GranArmPos2 = new Vector2(.4f, -.2f); //(OffSet from GranOrigin)
+    float GranScale = 1f;
     float GranDist = .5f;
     float GranArmDir = 1f;
     float GranArmLength = 1f;
@@ -119,9 +123,13 @@ public class Player : MonoBehaviour {
 
         //Create Granny Object
         GranRef = new GameObject();
+        GranRef.transform.localScale = new Vector3(GranScale, GranScale, 1);
         GranRef.AddComponent<SpriteRenderer>();
         GranRef.GetComponent<SpriteRenderer>().sprite = GranSprite;
         GranRef.GetComponent<SpriteRenderer>().sortingOrder = sr.sortingOrder-1;
+        GranRef.AddComponent<Animator>();
+        GranRef.GetComponent<Animator>().runtimeAnimatorController = GranAnim;
+            
         //GranRef.GetComponent<SpriteRenderer>().color = new Color(1f, .25f, 1f, 1f);
 
         //Create Granny Hand
@@ -136,6 +144,12 @@ public class Player : MonoBehaviour {
         GranArm.GetComponent<SpriteRenderer>().sprite = GranArmSprite;
         GranArm.GetComponent<SpriteRenderer>().sortingOrder = sr.sortingOrder-1;
         GranArmLength = GranArm.GetComponent<SpriteRenderer>().bounds.size.x;
+
+        //Create Granny Weapon
+        DirectionalReference2 = new GameObject();
+        DirectionalReference2.AddComponent<SpriteRenderer>();
+        DirectionalReference2.GetComponent<SpriteRenderer>().sprite = GranWeapon;
+        DirectionalReference2.GetComponent<Transform>().localScale = new Vector3(GranWeaponScale, GranWeaponScale, 1);
 
         //Define Tower Array
         TowerUIArray = new GameObject[TowerArrayMax];
@@ -326,7 +340,7 @@ public class Player : MonoBehaviour {
 
             //Control Granny Body
             Transform GranTrans = GranRef.GetComponent<Transform>();
-            if (xAxis != 0 || yAxis != 0)
+            if (xAxis != 0 && !BuildActive && !EditActive || yAxis != 0 && !BuildActive && !EditActive)
             {
                 //Calculate Input Variables
                 float zAxis = Mathf.Sqrt(Mathf.Pow(xAxis, 2) + Mathf.Pow(yAxis, 2)); //(Hypotenuse)
@@ -350,12 +364,25 @@ public class Player : MonoBehaviour {
                     GranHand.GetComponent<SpriteRenderer>().flipX = true;
                     GranArmDir = 1;
                 }
+
+                //Manage Gran Anim
+                GranRef.GetComponent<Animator>().Play("GranWindup");
             }
             else
             {
                 //Set Grandmother Position
                 GranTrans.position = new Vector3(trans.position.x, trans.position.y, trans.position.z)
                 + new Vector3(GranOrigin.x, GranOrigin.y);
+
+                //Manage Gran Anim
+                if (col.PlaceMeeting(trans.position.x, trans.position.y - PhysicsObject.minMove, 0))
+                {
+                    GranRef.GetComponent<Animator>().Play("GranIdle");
+                }
+                else
+                {
+                    GranRef.GetComponent<Animator>().Play("GranFlying");
+                }
             }
 
             //Control Granny Arm
@@ -405,6 +432,23 @@ public class Player : MonoBehaviour {
             DirectionalReference2.GetComponent<Transform>().position = trans.position;
             DirectionalReference2.GetComponent<Transform>().eulerAngles = new Vector3(0, 0, (Mathf.Atan2(yAxis2, xAxis2) / Mathf.PI) * 180);
             DirectionalReference2.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            //Debug.Log(xAxis2 + " " + yAxis2);
+
+            //Set Default Weapon Direction
+            if (Mathf.Abs(xAxis2) < .04f && Mathf.Abs(yAxis2) < .04f)
+            {
+                //Debug.Log("Breep");
+                
+
+                if(GranRef.GetComponent<SpriteRenderer>().flipX)
+                {
+                    DirectionalReference2.GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    DirectionalReference2.GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 180);
+                }
+            }
         }
     }
 

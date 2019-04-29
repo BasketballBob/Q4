@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 848476181404187656}
   - component: {fileID: 848476181404187660}
   m_Layer: 0
-  m_Name: normal_baby_sprite_1_edit_0
+  m_Name: NormalBaby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowAI: 1
-  CanJump: 1
+  CanJump: 0
   health: 1
   moveSpeed: 2
   jumpSpeed: 1

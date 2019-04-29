@@ -15,6 +15,16 @@ public class Wall : Tower
     [SerializeField] float Health;
     float HealthAmount = 4f; //Time in seconds of destruction
     float HealthRiseRate = .5f; //Multiplier
+    float ShakeAlarm;
+    float ShakeTime = .2f;
+    float ShakeAngle = 1;
+    int ShakeSide = 1;
+
+    //Particle Variables
+    public Sprite TopParticle;
+    public Sprite MidParticle;
+    public Sprite BottomParticle;
+    int ParticleCount = 3;
     
 
     //Define Reference Variables
@@ -55,12 +65,13 @@ public class Wall : Tower
             ColliderAdded = true;
 
             //Kill All Enemies Inside
-            while(Collider2.PlaceMeeting(trans.position.x, trans.position.y, 2))
+            int KillCap = 0; //Ensures Loop Isn't Infinite
+            while(Collider2.PlaceMeeting(trans.position.x, trans.position.y, 2) && KillCap < 20)
             {
                 Destroy(col.NearestCollider(trans.position.x, trans.position.y, 2));
+                KillCap++;
             }
         }
-
 
         //Fire At Target 
         if (target != null)
@@ -80,6 +91,20 @@ public class Wall : Tower
         //Detect If Enemy Is Colliding With Wall
         if(Collider2.PlaceMeeting(trans.position.x-PhysicsObject.minMove, trans.position.y, 2))
         {
+            //Shake Tower 
+            if(ShakeAlarm-Time.deltaTime > 0)
+            {
+                ShakeAlarm -= Time.deltaTime;
+            }
+            else
+            {
+                ShakeSide *= -1;
+                ShakeAlarm = ShakeTime;
+            }
+
+            //Set Shake Angle
+            trans.eulerAngles = new Vector3(0, 0, ShakeAngle * ShakeSide);
+
             //Deduct From Health 
             if (Health - Time.deltaTime > 0)
             {
@@ -88,13 +113,16 @@ public class Wall : Tower
             else Health = 0;
 
             //Deduct From Health Count
-            if((HealthCount-1)*HealthAmount > Health)
+            if((HealthCount-1)*HealthAmount >= Health)
             {
                 HealthCount -= 1;
             }
         }
         else
         {
+            //Reset Angle
+            trans.eulerAngles = new Vector3(0, 0, 0);
+
             //Rise Health
             if(Health + HealthRiseRate*Time.deltaTime < HealthCount * (float)HealthAmount)
             {
@@ -107,6 +135,43 @@ public class Wall : Tower
         if(HealthCount <= 0)
         {
             Destroy(gameObject);
+        }
+
+        //Spawn Block Particles
+        if(HealthCount < ParticleCount)
+        {
+            //Create Empty GameObject
+            GameObject tvParticle = Instantiate(new GameObject());
+            tvParticle.AddComponent<SpriteRenderer>();
+            tvParticle.AddComponent<Particle>();
+
+            //Set Particle Variables
+            tvParticle.GetComponent<Particle>().vSpeed = 4;
+            tvParticle.GetComponent<Particle>().hSpeed = .5f;
+            tvParticle.GetComponent<Particle>().Gravity = 9;
+            tvParticle.GetComponent<Particle>().LifeAlarm = 5;
+            tvParticle.GetComponent<Particle>().SpinRate = -20;
+
+            //Spawn Particle
+            if (ParticleCount == 1)
+            {
+                tvParticle.GetComponent<SpriteRenderer>().sprite = BottomParticle;
+                tvParticle.transform.position = transform.position + new Vector3(-.08f, -1.29f, 0);
+            }
+            else if(ParticleCount == 2)
+            {
+                tvParticle.GetComponent<SpriteRenderer>().sprite = MidParticle;
+                tvParticle.transform.position = transform.position + new Vector3(0.15f, -0.21f, 0);
+            }
+            else if(ParticleCount == 3)
+            {
+                tvParticle.GetComponent<SpriteRenderer>().sprite = TopParticle;
+                tvParticle.transform.position = transform.position + new Vector3(-0.16f, .87f, 0);
+            }
+
+            //Deduct Particle Count
+            ParticleCount--;
+
         }
 
         //Set Wall Sprites
