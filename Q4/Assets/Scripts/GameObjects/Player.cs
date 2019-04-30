@@ -32,7 +32,8 @@ public class Player : MonoBehaviour {
     //GameObject tr_PeaShooter;
 
     //Player Variables
-    public int Cash = 300;
+    public static int Cash;
+    int StartingCash = 300;
     bool Suspended = false; //Equivalent to "Cutscene" var from "Functional Platformer" 
     float jumpSpeed = 10f;
     float bulletSpeed = 15f;
@@ -121,6 +122,9 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        //Set Static Variables
+        Cash = StartingCash;
+
         //Create Granny Object
         GranRef = new GameObject();
         GranRef.transform.localScale = new Vector3(GranScale, GranScale, 1);
@@ -165,9 +169,9 @@ public class Player : MonoBehaviour {
     //DEBUGGING UI
     private void OnGUI()
     {
-        GUIStyle testStyle = new GUIStyle();
-        testStyle.fontSize = 50;
-        GUI.Label(new Rect(100, 100, 200, 50), Cash.ToString(), testStyle);
+        //GUIStyle testStyle = new GUIStyle();
+        //testStyle.fontSize = 50;
+        //GUI.Label(new Rect(100, 100, 200, 50), Cash.ToString(), testStyle);
     }
 
     // Update is called once per frame

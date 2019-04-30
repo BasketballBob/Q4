@@ -36,6 +36,7 @@ public class FastEnemy : Enemy
 
         //Manage Animations 
         anim.Play("FastBaby_walkCycle");
+        
 
     }//UPDATE
 
