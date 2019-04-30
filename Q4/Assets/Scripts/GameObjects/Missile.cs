@@ -6,12 +6,15 @@ public class Missile : Projectile
 {
     //Missile References
     public Transform Target;
+    Vector3 TargetPos;
 
     //Missile Variables
     int VDirection = 1;
     float vSpeed = 0f;
-    float flyRate = .5f;
+    float flyRate = 10f;
+    float flyCap = 20f;
     float TurnHeight = 20f;
+    float TargetXOffSet = 5f;
     bool FollowTarget = false;
 
     public override void OnEnable()
@@ -23,9 +26,7 @@ public class Missile : Projectile
 
     // Start is called before the first frame update
     public void Start()
-    {
-        Target = GetComponent<Collider>().NearestCollider(transform.position.x, transform.position.y, 2).transform;
-
+    {        
         //Make Missile Invulnerable
         GetComponent<Projectile>().Invulnerable = true;
     }
@@ -47,18 +48,31 @@ public class Missile : Projectile
         {
             //Begin Heading Downwards
             VDirection = -1;
+            vSpeed *= -1;
+
+            //Set Target 
+            Target = GetComponent<Collider>().NearestCollider(transform.position.x, transform.position.y, 2).transform;
+
+            //Destroy Self If No Target
+            if (Target == null)
+            {
+                Destroy(gameObject);
+            }
+            //Set Target pos
+            else TargetPos = Target.transform.position + new Vector3(Random.Range(-TargetXOffSet, TargetXOffSet), 0);
 
             //Begin Following Target
             FollowTarget = true;
 
             //Make Missile Vulnerable
-            GetComponent<Projectile>().Invulnerable = true;
+            GetComponent<Projectile>().Invulnerable = false;
         }
 
         //Follow Target
         if(FollowTarget && Target != null)
         {
-            transform.position = new Vector3(Target.position.x, transform.position.y, transform.position.z);
+            //Follow Target Horizontally
+            transform.position = new Vector3(TargetPos.x, transform.position.y, transform.position.z);
         }
     }
 }

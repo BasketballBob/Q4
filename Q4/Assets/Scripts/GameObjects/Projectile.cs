@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour {
     public bool Invulnerable = false;
     int damage = 1;
     float lifeAlarm = 3f;
+    bool DestroySelf = false;
 
     //Define Reference Variables
     public virtual void OnEnable()
@@ -25,6 +26,12 @@ public class Projectile : MonoBehaviour {
 
     // Update is called once per frame
     public virtual void Update () {
+
+        //Destroy Self One Fram Later
+        if (DestroySelf) Destroy(gameObject);
+
+        //Set Collider If Missing
+        if(co == null) co = GetComponent<Collider>();
 
         //Set Direction Based On Trajectory 
         if (ProjectileTilt)
@@ -40,17 +47,20 @@ public class Projectile : MonoBehaviour {
             tvInst.GetComponent<Enemy>().health -= damage;
 
             //Destroy Self
-            Destroy(gameObject);
+            DestroySelf = true;
         }
 
         //Countdown Life Alarm
-        if (lifeAlarm - Time.deltaTime > 0 && !Invulnerable)
+        if (!Invulnerable)
         {
-            lifeAlarm -= Time.deltaTime;
-        }
-        else
-        {
-            Destroy(this.gameObject);
+            if (lifeAlarm - Time.deltaTime > 0)
+            {
+                lifeAlarm -= Time.deltaTime;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
 	}
 }

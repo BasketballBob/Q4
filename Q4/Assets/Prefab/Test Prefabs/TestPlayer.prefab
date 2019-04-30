@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 496400427605584057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.74, y: 2.06, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -94,13 +94,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8d2ac56de353240afb3398fd812531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GranSprite: {fileID: 21300000, guid: fb20f8e5c4a576c4780996102c15d974, type: 3}
-  GranHandSprite: {fileID: 21300000, guid: f079f82abf2a8b94bbf424c5b17f8dc1, type: 3}
-  GranArmSprite: {fileID: 21300000, guid: 4cc3ebdf6e101ad4f8bfc594202ff25a, type: 3}
-  ProjectileReference: {fileID: 1481844612809448, guid: cd6b1d095aba3f24f9d7032cdd0bce15,
+  GranSprite: {fileID: 21300002, guid: 442f3e3faa0f64244886f2cb5de07852, type: 3}
+  GranHandSprite: {fileID: 21300000, guid: 2e3fd60e98d87d4449b1c7804c244160, type: 3}
+  GranArmSprite: {fileID: 21300000, guid: a01e1e373178b074fae206763b2c9edd, type: 3}
+  GranAnim: {fileID: 9100000, guid: 75d6f74c7d3ef7c46a06dbac5a445444, type: 2}
+  ProjectileReference: {fileID: 8665004245339467115, guid: 51cfb26242df1f842a1ba329a555caaa,
     type: 3}
   DirectionalReference: {fileID: 0}
-  DirectionalReference2: {fileID: 0}
+  GranWeapon: {fileID: 21300000, guid: 35cdd69b1f5dd034a876c1dfbc8d31bc, type: 3}
   Cash: 300
 --- !u!114 &496400427605584058
 MonoBehaviour:
@@ -160,10 +161,16 @@ MonoBehaviour:
   - {fileID: 0}
   tr_PeaShooter: {fileID: 1016599417235586, guid: 0e2bb18f2b1b27848a19db4d58cf7d8a,
     type: 3}
-  tr_PeaShooter_Sprite: {fileID: 21300000, guid: 1be2b3877cab9794886768f751261640,
+  tr_PeaShooter_Sprite: {fileID: 21300000, guid: a050dc9aa9aaba14c872f86f1b50a813,
     type: 3}
-  tr_LaserRay: {fileID: 6532254544023700311, guid: 2dab50cefd7ae3048aa7b0b36e72a5b5,
+  tr_LaserRay: {fileID: 6917809531832588601, guid: d27ed81081f5d1442813d132eb863314,
     type: 3}
-  tr_LaserRay_Sprite: {fileID: 21300000, guid: 1be2b3877cab9794886768f751261640, type: 3}
+  tr_LaserRay_Sprite: {fileID: 21300000, guid: c74a4cb0d04e1464dbce0a00fca97fd7, type: 3}
   tr_Wall: {fileID: 1045535898931844342, guid: fcef2aa76b3b32846a111138bc35d5e5, type: 3}
-  tr_Wall_Sprite: {fileID: 21300000, guid: 1be2b3877cab9794886768f751261640, type: 3}
+  tr_Wall_Sprite: {fileID: 21300000, guid: 5c9f4fd81456c1948b8303a5d937e65c, type: 3}
+  tr_Artillery: {fileID: 1101323578381944055, guid: 2b3aec64bc7ff2e4dafa775792eee395,
+    type: 3}
+  tr_Artillery_Sprite: {fileID: 21300000, guid: 31c0502bd1c41804b9f826fac16d37d1,
+    type: 3}
+  tr_Delete: {fileID: 21300000, guid: 1ee4727b354436948bbef7da5de7551d, type: 3}
+  tr_Upgrade: {fileID: 21300000, guid: 4b89b32bfb102b14f94ed1d0d5f2646e, type: 3}

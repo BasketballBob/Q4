@@ -109,7 +109,7 @@ public class Player : MonoBehaviour {
         TowerReferences[0] = tr.tr_PeaShooter;
         TowerReferences[1] = tr.tr_LaserRay;
         TowerReferences[2] = tr.tr_Wall;
-        TowerReferences[3] = tr.tr_PeaShooter;
+        TowerReferences[3] = tr.tr_Artillery;
         TowerReferences[4] = tr.tr_PeaShooter;
         TowerReferences[5] = tr.tr_PeaShooter;
         TowerReferences[6] = tr.tr_PeaShooter;
@@ -281,7 +281,7 @@ public class Player : MonoBehaviour {
         //Active Tower Editing UI
         else if(EditUI && po.PlaceMeeting(trans.position.x, trans.position.y - PhysicsObject.minMove, 0) && !ResetUI)
         {
-            ManageTowerEditingUI(TowerArrayCount, BuildTower);
+            ManageTowerEditingUI(2, BuildTower); //TowerArrayCount
             Suspended = true;
 
             EditActive = true;
@@ -295,6 +295,9 @@ public class Player : MonoBehaviour {
             Suspended = false;            
         }
 
+        //Set Player Alpha
+        if (BuildActive || EditActive) SetPlayerAlpha(.1f);
+        else SetPlayerAlpha(1f);
    
         //Controller Jumping (Detected by flicking)
         if (po.PlaceMeeting(trans.position.x, trans.position.y - PhysicsObject.minMove, 0) && !Suspended)
@@ -761,7 +764,7 @@ public class Player : MonoBehaviour {
    
         //Determine Menu Selection Angle
         float SelectionAngle = ((Mathf.Atan2(yAxis, xAxis) / Mathf.PI) * 180); // + 180;
-        SelectionAngle = (SelectionAngle + 360) % 360; //Use Modulo and OffSet to find only positive angles
+        SelectionAngle = (SelectionAngle + 360 - 180) % 360; //Use Modulo and OffSet to find only positive angles
         SelectedInst = -1;
         float SelectDist = 360;
 
@@ -888,5 +891,20 @@ public class Player : MonoBehaviour {
         //Debug.Log("1 " + speed + " 2 " + Mathf.Sqrt(Mathf.Pow(returnX, 2) + Mathf.Pow(returnY, 2)));
 
         return new Vector2(returnX, returnY);
+    }
+
+    void SetPlayerAlpha(float Alpha)
+    {
+        SetAlpha(gameObject, Alpha);
+        SetAlpha(GranRef, Alpha);
+        SetAlpha(GranHand, Alpha);
+        SetAlpha(GranArm, Alpha);
+        SetAlpha(DirectionalReference2, Alpha);
+    }
+
+    void SetAlpha(GameObject tvObj, float Alpha)
+    {
+        SpriteRenderer tvSR = tvObj.GetComponent<SpriteRenderer>();
+        tvSR.color = new Color(tvSR.color.r, tvSR.color.g,tvSR.color.b, Alpha);
     }
 }
